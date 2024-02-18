@@ -3,6 +3,7 @@ package uniandes.dpoo.estructuras.logica;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Collections;
 
 /**
  * Esta clase tiene un conjunto de métodos para practicar operaciones sobre listas de enteros y de cadenas.
@@ -42,7 +43,7 @@ public class SandboxListas
      */
     public List<Integer> getCopiaEnteros( )
     {
-        return null;
+    	return (listaEnteros == null) ? null : new ArrayList<>(listaEnteros);
     }
 
     /**
@@ -51,7 +52,7 @@ public class SandboxListas
      */
     public List<String> getCopiaCadenas( )
     {
-        return null;
+    	return (listaCadenas == null) ? null : new ArrayList<>(listaCadenas);
     }
 
     /**
@@ -60,7 +61,7 @@ public class SandboxListas
      */
     public int[] getEnterosComoArreglo( )
     {
-        return null;
+    	return listaEnteros.stream().mapToInt(Integer::intValue).toArray();
     }
 
     /**
@@ -69,7 +70,7 @@ public class SandboxListas
      */
     public int getCantidadEnteros( )
     {
-        return -1;
+        return listaEnteros.size();
     }
 
     /**
@@ -78,7 +79,7 @@ public class SandboxListas
      */
     public int getCantidadCadenas( )
     {
-        return -1;
+        return listaCadenas.size();
     }
 
     /**
@@ -88,6 +89,7 @@ public class SandboxListas
      */
     public void agregarEntero( int entero )
     {
+    	 listaEnteros.add(entero);
 
     }
 
@@ -98,6 +100,7 @@ public class SandboxListas
      */
     public void agregarCadena( String cadena )
     {
+    	listaCadenas.add(cadena);
 
     }
 
@@ -107,6 +110,7 @@ public class SandboxListas
      */
     public void eliminarEntero( int valor )
     {
+    	listaEnteros.removeIf(elemento -> elemento == valor);
     }
 
     /**
@@ -115,6 +119,7 @@ public class SandboxListas
      */
     public void eliminarCadena( String cadena )
     {
+    	listaCadenas.removeIf(elemento -> elemento == cadena);
 
     }
 
@@ -127,7 +132,8 @@ public class SandboxListas
      */
     public void insertarEntero( int entero, int posicion )
     {
-
+    	posicion = Math.max(0, Math.min(posicion, listaEnteros.size()));
+        listaEnteros.add(posicion, entero);
     }
 
     /**
@@ -137,7 +143,9 @@ public class SandboxListas
      */
     public void eliminarEnteroPorPosicion( int posicion )
     {
-
+    	if (0 <= posicion && posicion < listaEnteros.size()) {
+            listaEnteros.remove(posicion);
+        }
     }
 
     /**
@@ -148,6 +156,11 @@ public class SandboxListas
      */
     public void reiniciarArregloEnteros( double[] valores )
     {
+    	listaEnteros = new ArrayList<>();
+        for (double valor : valores) {
+            int entero_truncado = (int) valor;
+            listaEnteros.add(entero_truncado);
+        }
     }
 
     /**
@@ -158,7 +171,10 @@ public class SandboxListas
      */
     public void reiniciarArregloCadenas( List<Object> objetos )
     {
-
+    	listaCadenas = new ArrayList<>();
+        for (Object objeto : objetos) {
+            listaCadenas.add(objeto.toString());
+        }
     }
 
     /**
@@ -168,6 +184,9 @@ public class SandboxListas
      */
     public void volverPositivos( )
     {
+    	for (int i = 0; i < listaEnteros.size(); i++) {
+            listaEnteros.set(i, Math.abs(listaEnteros.get(i)));
+        }
     }
 
     /**
@@ -175,6 +194,7 @@ public class SandboxListas
      */
     public void organizarEnteros( )
     {
+    	listaEnteros.sort(Collections.reverseOrder());
 
     }
 
@@ -183,6 +203,8 @@ public class SandboxListas
      */
     public void organizarCadenas( )
     {
+    	
+    	Collections.sort(listaCadenas);
 
     }
 
@@ -193,7 +215,7 @@ public class SandboxListas
      */
     public int contarApariciones( int valor )
     {
-        return -1;
+    	return Collections.frequency(listaEnteros, valor);
     }
 
     /**
@@ -205,7 +227,13 @@ public class SandboxListas
      */
     public int contarApariciones( String cadena )
     {
-        return -1;
+    	int contador = 0;
+        for (String elemento : listaCadenas) {
+            if (elemento.equalsIgnoreCase(cadena)) {
+                contador++;
+            }
+        }
+        return contador;
     }
 
     /**

@@ -31,6 +31,7 @@ public abstract class ConsolaBasica
         }
         return "error";
     }
+    //
 
     /**
      * Le pide confirmación al usuario, indicándole que debe responder 'si' o 'no'.
